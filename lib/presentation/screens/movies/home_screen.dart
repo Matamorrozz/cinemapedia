@@ -33,6 +33,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
     ref.read(popularMoviesProvider.notifier).loadNextPage();
+        ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+            ref.read(topRatedMoviesProvider.notifier).loadNextPage();
   }
 
   @override
@@ -40,6 +42,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShow = ref.watch(moviesSlideShowProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
+     final upcoming = ref.watch(upcomingMoviesProvider);
+      final topRated = ref.watch(topRatedMoviesProvider);
 
     return CustomScrollView(slivers: [
       const SliverAppBar(
@@ -63,11 +67,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                       .loadNextPage(),
                 ),
                 MovieHorizontalListview(
-                  movies: nowPlayingMovies,
+                  movies: upcoming,
                   title: 'Próximamente',
                   subTitle: 'Este mes',
                   loadNextPage: () => ref
-                      .read(nowPlayingMoviesProvider.notifier)
+                      .read(upcomingMoviesProvider.notifier)
                       .loadNextPage(),
                 ),
                 MovieHorizontalListview(
@@ -79,11 +83,11 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                       .loadNextPage(),
                 ),
                 MovieHorizontalListview(
-                  movies: nowPlayingMovies,
+                  movies: topRated,
                   title: 'Mejor Calificadas',
                   subTitle: 'Desde siempre',
                   loadNextPage: () => ref
-                      .read(nowPlayingMoviesProvider.notifier)
+                      .read(topRatedMoviesProvider.notifier)
                       .loadNextPage(),
                 ),
               ],
